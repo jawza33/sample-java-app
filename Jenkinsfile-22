@@ -31,7 +31,7 @@ pipeline {
             }
             post {
                 success{
-                    archiveArtifacts artifacts: '**/target/**.war', followsymlinks: false
+                    archiveArtifacts artifacts: '**/target/**.war', followsyml: false
                 }
             }
         } 
