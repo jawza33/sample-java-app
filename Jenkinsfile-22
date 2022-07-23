@@ -14,21 +14,26 @@ pipeline {
                
             }
         }
-         stage('Test') {
+
+        stage('Test') {
             steps {
                sh "mvn Test"
                
             }
+            
             post {
                 always{
-                    junit '**/target/surefire-reports/TEST-8.xml'
+                    junit '**/target/surefire-reports/TEST-*.xml'
                 }
             }
         }
         stage('package') {
+            
             steps {
                sh "mvn package"
+            
             }
+
             post {
                 success{
                     archiveArtifacts artifacts: '**/target/**.war', followsyml: false
