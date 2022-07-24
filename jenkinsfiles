@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    environment{
+    environment {
         AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
 
@@ -38,14 +38,17 @@ pipeline {
                 sh "mvn package"
                 
             }
-            post{
-                success{
-                    archiveArtifacts artifacts: '**/target/net6.0/**.war', followSymlinks: false
+
+            post {
+                success {
+                 archiveArtifacts artifacts:'**/target/net6.0/**.war',followSymlinks: false
+                
                 }
+           
             }
         }
         stage('publish artifct-repo to s3 Bucket'){
-            steps{
+            steps {
                 sh "aws configure set region us-east-1"
                 sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFACT_NAME"
             }
