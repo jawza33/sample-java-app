@@ -6,8 +6,12 @@ pipeline {
 
         AWS_S3_BUCKET = "artifct-repo"
         ARTIFACT_NAME = "hello-world.war"
-    }
-    stages {
+        AWS_EB_APP_NAME = "java-webapp"
+        AWS_EB_ENVIRONMENT = "javawebapp-env"
+
+        SONAR_IP = "54.226.50.200"
+        SONAR_TOKEN = 'sqp_53f7f73e1edec8841fe488a4c00a21ec3d8c0e40'
+
         stage('Validate') {
             steps {
                 sh "mvn validate"
@@ -33,6 +37,19 @@ pipeline {
                 }
             }
         }
+        stage('quality scan') {
+            steps {
+                sh '''
+
+                mvn clean verify sonar:sonar \
+                   -Dsonar.projectKey=Online-chohort-project1 \
+                   -Dsonar.host.url=http://$SONAR_IP \
+                   -Dsonar.login=$SONAR_TOKEN
+                '''
+            }
+
+        }
+        
         stage('Package') {
             steps {
                 sh "mvn package"
@@ -48,7 +65,7 @@ pipeline {
         }
         stage('publish artifct to s3 Bucket') {
             steps {
-                sh "set region us-east-1"
+                sh "aws configure set region us-east-1"
               
               sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFCT_NAME"
             
@@ -57,8 +74,9 @@ pipeline {
     
         stage ('deploy'){
             steps{
-                echo "Last Stage"
+                sh 'aws elasticbeanstalk create-application-version --application-name $AWS_EB_APP_NAME --version-label $AWS_EB_APP_VERSION --source-bundle S3Bucket=$AWS_S3_BUCKET,S3Key=$ARTIFACT_NAME'
 
+                sh 'aws elasticbeanstalk update-environment --application-name $AWS_EB_APP_NAME --environment-name $AWS_EB_ENVIRONMENT --version-label $AWS_EB_APP_VERSION'
             }
         }
     }
