@@ -68,14 +68,7 @@ pipeline {
                 }
             }
         }
-        stage('publish artifct to s3 Bucket') {
-            steps {
-              
-              sh "publish"
-              
-            
-            }
-        }
+        
     
         stage ('deploy'){
             steps{
