@@ -71,8 +71,8 @@ pipeline {
         stage('publish artifct to s3 Bucket') {
             steps {
               
+              sh "publish"
               
-              sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFCT_NAME"
             
             }
         }
