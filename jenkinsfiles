@@ -13,9 +13,11 @@ pipeline {
 
         SONAR_IP = "54.226.50.200"
         SONAR_TOKEN = 'sqp_53f7f73e1edec8841fe488a4c00a21ec3d8c0e40'
-
+    }
+    stages{
         stage('Validate') {
             steps {
+
                 sh "mvn validate"
                 sh "mvn clean"
                 
