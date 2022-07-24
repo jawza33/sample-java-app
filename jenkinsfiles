@@ -44,7 +44,6 @@ pipeline {
                  archiveArtifacts artifacts:'**/target/**.war',followSymlinks: false
                 
                 }
-           
             }
         }
         stage('publish artifct to s3 Bucket') {
