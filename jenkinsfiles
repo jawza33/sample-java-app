@@ -47,10 +47,15 @@ pipeline {
            
             }
         }
-        stage('publish artifct-repo to s3 Bucket'){
+        stage('publish artifct to s3 Bucket'){
             steps {
                 sh "aws configure set region us-east-1"
+<<<<<<< HEAD
                 sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFACT_NAME"
+=======
+                sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFCT_NAME"
+                
+>>>>>>> 10ea1e2ba4be1757f3cd5d2f9deaa49fe01aa34e
             }
         }
     
