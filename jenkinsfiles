@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+    environment{
+        AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
+        AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
+
+        AWS_S3_BUCKET = "artifct-repo"
+        ARTIFACT_NAME = "hello-world.war"
+    }
+    stages {
+        stage('Validate') {
+            steps {
+                sh "dotnet restore"
+                
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh "dotnet build"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh "dotnet test --logger:junit"
+                
+            }
+  
+        }
+        stage('Package') {
+            steps {
+                sh "dotnet publish"
+                
+            }
+            post{
+                success{
+                    archiveArtifacts artifacts: '**/bin/Debug/net6.0/**.dll', followSymlinks: false
+                }
+            }
+        }
+        stage('publish artifct-repo to s3 Bucket'){
+            steps{
+                sh "aws configure set region us-east-1"
+                sh "aws s3 cp ./target/**.war" "s3://$AWS_S3_BUCKET/$ARTIFACT_NAME"
+            }
+        }
+    
+        stage ('deploy'){
+            steps{
+                echo "Last Stage"
+
+            }
+        }
+    }
+}
