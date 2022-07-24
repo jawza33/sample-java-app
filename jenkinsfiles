@@ -11,6 +11,7 @@ pipeline {
         stage('Validate') {
             steps {
                 sh "dotnet restore"
+                sh "mvn clean"
                 
             }
         }
@@ -23,19 +24,18 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh "dotnet test --logger:junit"
+                sh "mvn Test"
                 
             }
-  
         }
         stage('Package') {
             steps {
-                sh "dotnet publish"
+                sh "mvn package"
                 
             }
             post{
                 success{
-                    archiveArtifacts artifacts: '**/bin/Debug/net6.0/**.dll', followSymlinks: false
+                    archiveArtifacts artifacts: '**/target/net6.0/**.war', followSymlinks: false
                 }
             }
         }
