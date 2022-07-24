@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Validate') {
             steps {
-                sh "dotnet restore"
+                sh "mvn validate"
                 sh "mvn clean"
                 
             }
@@ -18,7 +18,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "dotnet build"
+                sh "mvn compile "
             }
         }
 
