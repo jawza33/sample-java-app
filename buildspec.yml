@@ -29,5 +29,5 @@ phases:
 
 artifacts:
   files:
-    - ROOT.war
+    - helloworld
   name: hello-world-artifact
