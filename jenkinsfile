@@ -6,7 +6,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
 
         AWS_S3_BUCKET = "selnium"
-        ARTEFCT_NAME = "helloworld.war"
+         ARTIFACT_NAME = "hello-world.war"
 
         AWS_EB_APP_NAME = "selinum"
         AWS_EB_APP_VERSION = "${BUILD_ID}"
@@ -74,7 +74,7 @@ pipeline {
                 
 
             
-                sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTEFCT_NAME"
+                sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFACT_NAME"
             }
         }
         stage('Deploy') {
