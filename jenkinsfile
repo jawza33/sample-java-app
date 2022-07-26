@@ -3,10 +3,10 @@ pipeline {
 
     environment {
 
-        AWS_ACCESS_KEY_ID     = credentials('aws-secret-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+        aws_secret_access_key     = credentials('aws_access_key_id')
+        aws_secret_access_key = credentials('aws_secret_access_key')
 
-        AWS_S3_BUCKET = "selnium"
+        AWS_S3_BUCKET = "selnium_"
         ARTIFACT_NAME = "hello-world.war"
         AWS_EB_APP_NAME = "selinum"
         AWS_EB_APP_VERSION = "${BUILD_ID}"
