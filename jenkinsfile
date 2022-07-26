@@ -6,7 +6,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
 
         AWS_S3_BUCKET = "selnium"
-        ARTEFCT_NAME = "hello-world.war"
+        ARTEFCT_NAME = "helloworld.war"
 
         AWS_EB_APP_NAME = "selinum"
         AWS_EB_APP_VERSION = "${BUILD_ID}"
@@ -71,7 +71,7 @@ pipeline {
         }
         stage('Publish artefct to s3 bucket') {
             steps {
-                sh "aws configure set region us-east-1"
+                
 
             
                 sh "aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTEFCT_NAME"
