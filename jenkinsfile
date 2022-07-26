@@ -6,7 +6,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
 
         AWS_S3_BUCKET = "selnium"
-        ARTEFACT_NAME = "hello-world.war"
+        ARTEFCT_NAME = "hello-world.war"
 
         AWS_EB_APP_NAME = "selinum"
         AWS_EB_APP_VERSION = "${BUILD_ID}"
