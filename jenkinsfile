@@ -7,7 +7,7 @@ pipeline {
 
 
         AWS_S3_BUCKET = "selnium"
-        ARTIFACT_NAME = "hello-world.war"
+        ARTIFACT_NAME = "helloworld.war"
         AWS_EB_APP_NAME = "selinum"
         AWS_EB_APP_VERSION = "${BUILD_ID}"
         AWS_EB_ENVIRONMENT = "Selinum-env"
