@@ -24,7 +24,7 @@ phases:
     commands:
     - echo Build start on 'date'
     - mvn package
-    - mv target/*.war ROOT.war
+    - mv target/*.war helloworld.war
     - echo Build ends on 'date'
 
 artifacts:
